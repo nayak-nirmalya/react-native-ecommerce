@@ -23,4 +23,14 @@ export const orders = pgTable("orders", {
   total: doublePrecision("total").default(0),
 });
 
-// export const order_items = {};
+export const order_items = pgTable("order_items", {
+  id: serial("id").primaryKey(),
+  order_id: integer("order_id")
+    .notNull()
+    .references(() => orders.id),
+  product_id: integer("product_id")
+    .notNull()
+    .references(() => products.id),
+  quantity: integer("quantity").notNull(),
+  total: doublePrecision("total").default(0),
+});
