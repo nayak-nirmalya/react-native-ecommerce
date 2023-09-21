@@ -1,0 +1,10 @@
+{
+  "name": "express-server",
+  "version": "1.0.0",
+  "description": "Backend for React Native E-Commerce App.",
+  "main": "index.js",
+  "scripts": {},
+  "keywords": [],
+  "author": "Nirmalya Nayak",
+  "license": "ISC"
+}
