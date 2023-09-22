@@ -6,7 +6,7 @@ import {
   doublePrecision,
   integer,
 } from "drizzle-orm/pg-core";
-import { InferSelectModel } from "drizzle-orm";
+import { InferModel } from "drizzle-orm";
 
 export const products = pgTable("products", {
   id: serial("id").primaryKey(),
@@ -36,6 +36,6 @@ export const order_items = pgTable("order_items", {
   total: doublePrecision("total").default(0),
 });
 
-export type Product = InferSelectModel<typeof products>;
-export type Order = InferSelectModel<typeof orders>;
-export type OrderItem = InferSelectModel<typeof order_items>;
+export type Product = InferModel<typeof products>;
+export type Order = InferModel<typeof orders>;
+export type OrderItem = InferModel<typeof order_items>;
