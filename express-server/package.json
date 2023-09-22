@@ -8,7 +8,7 @@
     "dev": "ts-node src/index.ts",
     "start": "node dist/index.js",
     "start:prod": "NODE_ENV=production ts-node src/index.ts",
-    "generate": "drizzle-kit generate:pg",
+    "generate": "drizzle-kit generate:pg --config=drizzle.config.ts",
     "migrate": "ts-node migrate"
   },
   "keywords": [],
@@ -25,7 +25,7 @@
     "@types/express": "^4.17.17",
     "@types/node": "^20.4.4",
     "@types/pg": "^8.10.2",
-    "drizzle-kit": "^0.19.0",
+    "drizzle-kit": "^0.19.13",
     "ts-node": "^10.9.1"
   }
 }
