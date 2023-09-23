@@ -15,5 +15,5 @@ const app = express();
 app.use(express.json());
 
 app.listen(PORT, () => {
-  console.log(`Express Sever is Running on PORT: ${PORT}`);
+  console.log(`Express Server is Running on PORT: ${PORT}`);
 });
