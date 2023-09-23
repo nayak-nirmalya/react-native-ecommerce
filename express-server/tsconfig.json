@@ -9,8 +9,7 @@
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"],
-      "@source": ["./src"]
+      "@/*": ["./*"]
     }
   },
   "include": ["src/**/*"],
