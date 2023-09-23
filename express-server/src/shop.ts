@@ -30,4 +30,23 @@ router.get("/products", async (req: Request, res, Response) => {
   }
 });
 
+router.get("/products/:id", async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const product = await db
+      .select()
+      .from(products)
+      .where(eq(products.id, +id));
+
+    if (product.length === 0) {
+      return res.status(404).json({ error: "Product not found." });
+    }
+
+    res.json(product[0]);
+  } catch (err) {
+    handleQueryError(err, res);
+  }
+});
+
 export { router };
