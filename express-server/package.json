@@ -26,6 +26,7 @@
     "@types/node": "^20.4.4",
     "@types/pg": "^8.10.2",
     "drizzle-kit": "^0.19.13",
-    "ts-node": "^10.9.1"
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0"
   }
 }
