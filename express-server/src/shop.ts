@@ -20,4 +20,13 @@ const handleQueryError = (err: any, res: Response) => {
     .json({ error: "An error occurred while executing the query." });
 };
 
+router.get("/products", async (req: Request, res, Response) => {
+  try {
+    const allProducts = await db.select().from(products);
+    res.json(allProducts);
+  } catch (error) {
+    handleQueryError(error, res);
+  }
+});
+
 export { router };
