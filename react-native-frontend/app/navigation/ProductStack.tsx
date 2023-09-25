@@ -25,7 +25,36 @@ export type ProductDetailsPageProps = NativeStackScreenProps<
 >;
 export type StackNavigation = NavigationProp<ProductsStackParamList>;
 
-const ProductsStackNav = () => {
+const CartButton = () => {
+  const navigation = useNavigation<StackNavigation>();
+  const { products } = useCartStore((state) => ({
+    products: state.products,
+  }));
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    const count = products.reduce(
+      (prev, products) => prev + products.quantity,
+      0
+    );
+    setCount(count);
+  }, [products]);
+
+  return (
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate("CartModal");
+      }}
+    >
+      <View style={styles.countContainer}>
+        <Text style={styles.countText}>{count}</Text>
+      </View>
+      <Ionicons name="cart" size={28} color={"#000"} />
+    </TouchableOpacity>
+  );
+};
+
+export const ProductsStackNav = () => {
   return (
     <ProductsStack.Navigator
       screenOptions={{
