@@ -7,14 +7,41 @@ import {
   Image,
   StyleSheet,
 } from "react-native";
+
 import { ProductsPageProps } from "@/navigation/ProductsStack";
+import { Product, fetchProducts } from "@/api/api";
 
 export const Products = ({ navigation }: ProductsPageProps) => {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const load = async () => {
+      const products = await fetchProducts();
+      setProducts(products);
+    };
+
+    load();
+  }, []);
+
+  const renderProductItem = ({ item }: { item: Product }) => (
+    <TouchableOpacity
+      style={styles.productItem}
+      onPress={() => navigation.navigate("ProductDetails", { id: item.id })}
+    >
+      <Image style={styles.productImage} source={{ uri: item.product_image }} />
+      <Text style={styles.productName}>{item.product_name}</Text>
+      <Text style={styles.productPrice}>${item.product_price}</Text>
+    </TouchableOpacity>
+  );
 
   return (
     <View style={styles.container}>
-      <Text>Products</Text>
+      <FlatList
+        data={products}
+        renderItem={renderProductItem}
+        keyExtractor={(item) => item.id.toString()}
+        numColumns={2}
+      />
     </View>
   );
 };
