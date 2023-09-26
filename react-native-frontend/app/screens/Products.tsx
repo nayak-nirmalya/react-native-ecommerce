@@ -10,6 +10,8 @@ import {
 import { ProductsPageProps } from "@/navigation/ProductsStack";
 
 export const Products = ({ navigation }: ProductsPageProps) => {
+  const [products, setProducts] = useState([]);
+
   return (
     <View style={styles.container}>
       <Text>Products</Text>
