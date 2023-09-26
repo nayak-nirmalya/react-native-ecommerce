@@ -21,3 +21,16 @@ export interface Order {
   customer_email: string;
   total: number;
 }
+
+export async function fetchProducts(): Promise<Product[]> {
+  try {
+    const response = await fetch(`${API_URL}/products`);
+
+    if (!response.ok) throw new Error("Failed to fetch products.");
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error Fetching Products: ", error);
+    return [];
+  }
+}
