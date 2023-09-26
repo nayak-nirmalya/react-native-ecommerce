@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
+  ListRenderItem,
 } from "react-native";
 
 import { ProductsPageProps } from "@/navigation/ProductsStack";
@@ -23,7 +24,7 @@ export const Products = ({ navigation }: ProductsPageProps) => {
     load();
   }, []);
 
-  const renderProductItem = ({ item }: { item: Product }) => (
+  const renderProductItem: ListRenderItem<Product> = ({ item }) => (
     <TouchableOpacity
       style={styles.productItem}
       onPress={() => navigation.navigate("ProductDetails", { id: item.id })}
