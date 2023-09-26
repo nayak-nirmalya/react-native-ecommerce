@@ -28,10 +28,13 @@ export type ProductDetailsPageProps = NativeStackScreenProps<
 export type StackNavigation = NavigationProp<ProductsStackParamList>;
 
 const CartButton = () => {
+  const navigation = useNavigation<StackNavigation>();
+  const [count, setCount] = useState(0);
+
   return (
     <TouchableOpacity>
       <View style={styles.countContainer}>
-        <Text style={styles.countText}>{}</Text>
+        <Text style={styles.countText}>{count}</Text>
       </View>
       <Ionicons name="cart" size={28} color={"#000"} />
     </TouchableOpacity>
