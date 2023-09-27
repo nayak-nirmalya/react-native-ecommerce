@@ -8,6 +8,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 import { Products } from "@/screens/Products";
+import { ProductDetails } from "@/screens/ProductDetails";
 
 type ProductsStackParamList = {
   Products: undefined;
@@ -56,6 +57,11 @@ export const ProductsStackNav = () => {
         name="Products"
         component={Products}
         options={{ headerTitle: "Neon Shop" }}
+      />
+      <ProductsStack.Screen
+        name="ProductDetails"
+        component={ProductDetails}
+        options={{ headerTitle: "Details Page" }}
       />
     </ProductsStack.Navigator>
   );
