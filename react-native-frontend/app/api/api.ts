@@ -34,3 +34,18 @@ export async function fetchProducts(): Promise<Product[]> {
     return [];
   }
 }
+
+export async function fetchProductDetails(
+  productId: number
+): Promise<Product | null> {
+  try {
+    const response = await fetch(`${API_URL}/products/${productId}`);
+
+    if (!response.ok) throw new Error("Failed to fetch product details.");
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error Fetching Product Details:", error);
+    return null;
+  }
+}
