@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, SafeAreaView, Image } from "react-native";
 
 import { ProductDetailsPageProps } from "@/navigation/ProductsStack";
 import { Product, fetchProductDetails } from "@/api/api";
 
 export const ProductDetails = ({ route }: ProductDetailsPageProps) => {
   const { id } = route.params;
-  const [product, setProduct] = useState<Product>(null);
+  const [product, setProduct] = useState<Product | null>(null);
 
   const fetchProduct = async () => {
     try {
@@ -22,9 +22,14 @@ export const ProductDetails = ({ route }: ProductDetailsPageProps) => {
   }, []);
 
   return (
-    <View>
-      <Text>ProductDetails</Text>
-    </View>
+    <SafeAreaView style={styles.container}>
+      {product && (
+        <Image
+          style={styles.productImage}
+          source={{ uri: product.product_image }}
+        />
+      )}
+    </SafeAreaView>
   );
 };
 
