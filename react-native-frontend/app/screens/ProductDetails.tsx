@@ -24,10 +24,20 @@ export const ProductDetails = ({ route }: ProductDetailsPageProps) => {
   return (
     <SafeAreaView style={styles.container}>
       {product && (
-        <Image
-          style={styles.productImage}
-          source={{ uri: product.product_image }}
-        />
+        <>
+          <Image
+            style={styles.productImage}
+            source={{ uri: product.product_image }}
+          />
+          <Text style={styles.productName}>{product.product_name}</Text>
+          <Text style={styles.productCategory}>{product.product_category}</Text>
+          <Text style={styles.productDescription}>
+            {product.product_description}
+          </Text>
+          <Text style={styles.productPrice}>
+            Price: ${product.product_price}
+          </Text>
+        </>
       )}
     </SafeAreaView>
   );
