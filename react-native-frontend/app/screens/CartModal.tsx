@@ -1,9 +1,9 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Keyboard, StyleSheet, Text, View } from "react-native";
 
 import { StackNavigation } from "@/navigation/ProductsStack";
-import { Order } from "@/api/api";
+import { Order, createOrder } from "@/api/api";
 import { useCartStore } from "@/state/cartStore";
 
 export const CartModal = () => {
@@ -19,6 +19,24 @@ export const CartModal = () => {
   const [order, setOrder] = useState<Order | null>(null);
   const [submitting, setSubmitting] = useState(false);
   const navigation = useNavigation<StackNavigation>();
+
+  const onSubmitOrder = async () => {
+    setSubmitting(true);
+    Keyboard.dismiss();
+    try {
+      const response = await createOrder({
+        email,
+        products: products.map((product) => ({
+          product_id: product.id,
+          quantity: product.quantity,
+        })),
+      });
+      setOrder(response);
+      clearCart();
+    } finally {
+      setSubmitting(false);
+    }
+  };
 
   return (
     <View>
