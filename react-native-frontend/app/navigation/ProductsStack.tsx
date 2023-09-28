@@ -9,6 +9,8 @@ import { NavigationProp, useNavigation } from "@react-navigation/native";
 
 import { Products } from "@/screens/Products";
 import { ProductDetails } from "@/screens/ProductDetails";
+import { CartModal } from "@/screens/CartModal";
+import { useCartStore } from "@/state/cartStore";
 
 type ProductsStackParamList = {
   Products: undefined;
@@ -31,9 +33,24 @@ export type StackNavigation = NavigationProp<ProductsStackParamList>;
 const CartButton = () => {
   const navigation = useNavigation<StackNavigation>();
   const [count, setCount] = useState(0);
+  const { products } = useCartStore((state) => ({
+    products: state.products,
+  }));
+
+  useEffect(() => {
+    const count = products.reduce(
+      (prev, products) => prev + products.quantity,
+      0
+    );
+    setCount(count);
+  }, [products]);
 
   return (
-    <TouchableOpacity>
+    <TouchableOpacity
+      onPress={() => {
+        navigation.navigate("CartModal");
+      }}
+    >
       <View style={styles.countContainer}>
         <Text style={styles.countText}>{count}</Text>
       </View>
@@ -62,6 +79,11 @@ export const ProductsStackNav = () => {
         name="ProductDetails"
         component={ProductDetails}
         options={{ headerTitle: "Details Page" }}
+      />
+      <ProductsStack.Screen
+        name="CartModal"
+        component={CartModal}
+        options={{ headerShown: false, presentation: "modal" }}
       />
     </ProductsStack.Navigator>
   );
