@@ -1,7 +1,25 @@
-import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 
+import { StackNavigation } from "@/navigation/ProductsStack";
+import { Order } from "@/api/api";
+import { useCartStore } from "@/state/cartStore";
+
 export const CartModal = () => {
+  const { products, total, reduceProduct, addProduct, clearCart } =
+    useCartStore((state) => ({
+      products: state.products,
+      total: state.total,
+      reduceProduct: state.reduceProduct,
+      addProduct: state.addProduct,
+      clearCart: state.clearCart,
+    }));
+  const [email, setEmail] = useState("");
+  const [order, setOrder] = useState<Order | null>(null);
+  const [submitting, setSubmitting] = useState(false);
+  const navigation = useNavigation<StackNavigation>();
+
   return (
     <View>
       <Text>CartModal</Text>
