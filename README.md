@@ -4,6 +4,8 @@ This is a simple shopping app built with React Native, Expo & TypeScript, using 
 
 To run the project, check out the [react-native-frontend](./react-native-frontend) and [express-server](./express-server) directories.
 
+Credits: [Simon](https://twitter.com/schlimmson)
+
 ## Preview
 
 <div align='center'>
