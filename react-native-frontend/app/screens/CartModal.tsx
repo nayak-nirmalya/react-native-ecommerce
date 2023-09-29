@@ -1,6 +1,19 @@
 import { useNavigation } from "@react-navigation/native";
 import React, { useState } from "react";
-import { Keyboard, StyleSheet, Text, View } from "react-native";
+import {
+  View,
+  Text,
+  FlatList,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  Keyboard,
+} from "react-native";
+import ConfettiCannon from "react-native-confetti-cannon";
+import { Ionicons } from "@expo/vector-icons";
 
 import { StackNavigation } from "@/navigation/ProductsStack";
 import { Order, createOrder } from "@/api/api";
@@ -39,8 +52,103 @@ export const CartModal = () => {
   };
 
   return (
-    <View>
-      <Text>CartModal</Text>
+    <View style={styles.container}>
+      {order && (
+        <ConfettiCannon
+          count={200}
+          origin={{ x: -10, y: 0 }}
+          fallSpeed={2500}
+          fadeOut={false}
+          autoStart={true}
+        />
+      )}
+      {order && (
+        <View
+          style={{
+            marginTop: "50%",
+            padding: 20,
+            backgroundColor: "#000",
+            borderRadius: 8,
+            marginBottom: 20,
+            alignItems: "center",
+          }}
+        >
+          <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 26 }}>
+            Order submitted!
+          </Text>
+          <Text style={{ color: "#fff", fontSize: 16, margin: 20 }}>
+            Order ID: {order.id}
+          </Text>
+          <TouchableOpacity
+            onPress={() => navigation.goBack()}
+            style={{ backgroundColor: "#1FE687", padding: 10, borderRadius: 8 }}
+          >
+            <Text style={{ color: "#000", fontWeight: "bold", fontSize: 16 }}>
+              Continue Shopping
+            </Text>
+          </TouchableOpacity>
+        </View>
+      )}
+      {!order && (
+        <KeyboardAvoidingView
+          style={{ flex: 1 }}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          keyboardVerticalOffset={65}
+        >
+          <Text style={styles.cartTitle}>Your Cart</Text>
+          {products.length === 0 && (
+            <Text style={{ textAlign: "center" }}>Your cart is empty!</Text>
+          )}
+          <FlatList
+            data={products}
+            keyExtractor={(item) => item.id.toString()}
+            renderItem={({ item }) => (
+              <View style={styles.cartItemContainer}>
+                <Image
+                  style={styles.cartItemImage}
+                  source={{ uri: item.product_image }}
+                />
+                <View style={styles.itemContainer}>
+                  <Text style={styles.cartItemName}>{item.product_name}</Text>
+                  <Text>Price: ${item.product_price}</Text>
+                </View>
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <TouchableOpacity
+                    onPress={() => reduceProduct(item)}
+                    style={{ padding: 10 }}
+                  >
+                    <Ionicons name="remove" size={20} color={"#000"} />
+                  </TouchableOpacity>
+
+                  <Text style={styles.cartItemQuantity}>{item.quantity}</Text>
+                  <TouchableOpacity
+                    onPress={() => addProduct(item)}
+                    style={{ padding: 10 }}
+                  >
+                    <Ionicons name="add" size={20} color={"#000"} />
+                  </TouchableOpacity>
+                </View>
+              </View>
+            )}
+          />
+          <Text style={styles.totalText}>Total: ${total.toFixed(2)}</Text>
+
+          <TextInput
+            style={styles.emailInput}
+            placeholder="Enter your email"
+            onChangeText={setEmail}
+          />
+          <TouchableOpacity
+            style={[styles.submitButton, email === "" ? styles.inactive : null]}
+            onPress={onSubmitOrder}
+            disabled={email === "" || submitting}
+          >
+            <Text style={styles.submitButtonText}>
+              {submitting ? "Creating Order..." : "Submit Order"}
+            </Text>
+          </TouchableOpacity>
+        </KeyboardAvoidingView>
+      )}
     </View>
   );
 };
