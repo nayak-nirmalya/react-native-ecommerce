@@ -17,5 +17,18 @@ npm install
 To start the server, run:
 
 ```bash
-npm start
+npm run dev
 ```
+
+## Available commands
+
+Running commands with npm `npm run [command]`
+
+| command      | description                                |
+| :----------- | :----------------------------------------- |
+| `build`      | start building final version               |
+| `dev`        | start dev server                           |
+| `start`      | start build server                         |
+| `start:prod` | start build server with production Neon DB |
+| `generate`   | generate .sql with defined schema          |
+| `migrate`    | sync generated .sql to Neon DB             |
