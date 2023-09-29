@@ -14,6 +14,7 @@ import {
 } from "react-native";
 import ConfettiCannon from "react-native-confetti-cannon";
 import { Ionicons } from "@expo/vector-icons";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 import { StackNavigation } from "@/navigation/ProductsStack";
 import { Order, createOrder } from "@/api/api";
@@ -52,7 +53,7 @@ export const CartModal = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       {order && (
         <ConfettiCannon
           count={200}
@@ -149,7 +150,7 @@ export const CartModal = () => {
           </TouchableOpacity>
         </KeyboardAvoidingView>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 
